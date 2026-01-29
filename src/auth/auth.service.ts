@@ -63,6 +63,7 @@ export class AuthService {
       accessToken,
       refreshToken,
       user: safeUser,
+      token: accessToken,
     };
   }
 
@@ -88,7 +89,7 @@ export class AuthService {
     const newPayload: JwtPayload = {
       sub: user._id.toString(),
       email: user.email,
-      role: user.role,
+      role: user.role
     };
 
     const { accessToken, refreshToken: newRefreshToken } = await this.signTokens(newPayload);

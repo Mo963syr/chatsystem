@@ -74,8 +74,7 @@ async handleConnection(client: Socket) {
 console.log('📤 Client ID:', client.id);
 
     const cookie = client.handshake.headers.cookie;
-    const token = this.getTokenFromCookie(cookie);
-
+   const token = client.handshake.auth.token;
     if (!token) {
       throw new Error('Unauthorized: No access_token cookie');
     }

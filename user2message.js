@@ -7,8 +7,8 @@ const { io } = require('socket.io-client');
 const BASE_URL = 'http://localhost:3000';
 const LOGIN_ENDPOINT = '/auth/login';
 
-const EMAIL = 'moafaqaqeed01@gmail.com';
-const PASSWORD = 'A12345678';
+const EMAIL = 'moafaqaqeed012@gmail.com';
+const PASSWORD = 'A123456789';
 
 let accessToken = null;
 
@@ -47,12 +47,12 @@ function connectSocket() {
     console.log('✅ Socket connected:', socket.id);
 
     socket.emit('join-room', {
-      roomId: '697692b26a678faf3117813a_697912b5c3d60d123e8c482b',
+      roomId: '697912b5c3d60d123e8c482b_697692b26a678faf3117813a',
     });
 
     socket.emit('send-message', {
-      content: 'رسالة اختبار بعد تسجيل الدخول ✅',
-      receiverId: '697912b5c3d60d123e8c482b',
+      content: 'رسالة اختبار من المستخدم الثاني الدخول ✅',
+      receiverId: '697692b26a678faf3117813a',
     });
   });
 
@@ -66,8 +66,7 @@ function connectSocket() {
 }
 login();
 
-
-// // success socket with token IN CODE 
+// // success socket with token IN CODE
 // const { io } = require('socket.io-client');
 
 // // 🔴 الصق الكوكي هنا
