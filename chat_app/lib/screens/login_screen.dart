@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/start_chat_screen.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'chat_screen.dart';
@@ -25,14 +26,13 @@ class _LoginScreenState extends State<LoginScreen> {
       // 🔹 طباعة الرد الكامل
       print('LOGIN RESPONSE: $response');
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => ChatScreen(
-            receiverId: '697912b5c3d60d123e8c482b',
-          ),
-        ),
-      );
+    Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(
+    builder: (_) => const StartChatScreen(),
+  ),
+);
+
     } catch (e) {
       print('LOGIN ERROR RAW: $e');
 

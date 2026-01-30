@@ -10,6 +10,8 @@ class SocketService {
   IO.Socket? socket;
 
   Future<void> connect() async {
+    if (socket != null && socket!.connected) return;
+
     final token = await AuthService().getToken();
     if (token == null) throw Exception('No token');
 
@@ -29,6 +31,7 @@ class SocketService {
   }
 
   void sendMessage(String receiverId, String content) {
+    
     socket?.emit('send-message', {
       'receiverId': receiverId,
       'content': content,
@@ -41,5 +44,6 @@ class SocketService {
 
   void disconnect() {
     socket?.disconnect();
+    socket = null;
   }
 }
