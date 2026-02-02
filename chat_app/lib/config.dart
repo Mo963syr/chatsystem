@@ -1,6 +1,7 @@
 class AppConfig {
-  static const String baseUrl = 'http://localhost:3000';
-    static const String apiBaseUrl = 'http://localhost:3000';
-  static const String socketUrl  = 'http://localhost:3000';
+  static const String baseUrl = 'https://chatsystem-skcx.onrender.com';
+  static const String apiBaseUrl = 'https://chatsystem-skcx.onrender.com';
+  static const String socketUrl  = 'https://chatsystem-skcx.onrender.com';
   // استخدم localhost للجهاز الحقيقي
+  // https://chatsystem-skcx.onrender.com
 }

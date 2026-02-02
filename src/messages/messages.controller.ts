@@ -2,7 +2,7 @@ import { Controller, Get, Param, UseGuards, Query } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('messages')
 export class MessagesController {
   constructor(private messagesService: MessagesService) {}

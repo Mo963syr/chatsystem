@@ -1,0 +1,4 @@
+{
+  "java.compile.nullAnalysis.mode": "disabled",
+  "cmake.sourceDirectory": "C:/Users/User/vscode projects/chatsystem/chat_app/linux"
+}
