@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/socket_service.dart';
 import '../services/auth_service.dart';
+import '../services/ChatApiService.dart';
 
 class ChatScreen extends StatefulWidget {
   final String receiverId;
@@ -14,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final socketService = SocketService();
   final messageCtrl = TextEditingController();
   final List<Map<String, dynamic>> messages = [];
+ final chatApi = ChatApiService();
 
   String? myId;
 
@@ -23,23 +25,36 @@ class _ChatScreenState extends State<ChatScreen> {
     initSocket();
   }
 
-  Future<void> initSocket() async {
-    myId = await AuthService().getUserId();
-    if (myId == null) return;
+ Future<void> initSocket() async {
+  myId = await AuthService().getUserId();
+  if (myId == null) return;
 
-    await socketService.connect();
+  // 🔹 1) جلب المحادثات السابقة
+  final history = await chatApi.getChatHistory(
+    myId!,
+    widget.receiverId,
+  );
 
-    final roomId = [myId!, widget.receiverId]..sort();
-    socketService.joinRoom(roomId.join('_'));
+  setState(() {
+    messages.addAll(history);
+  });
 
-    socketService.onMessage((data) {
-      setState(() {
-        messages.add(data);
-      });
+  // 🔹 2) الاتصال بالسوكت
+  await socketService.connect();
+
+  final roomId = [myId!, widget.receiverId]..sort();
+  socketService.joinRoom(roomId.join('_'));
+
+  // 🔹 3) استقبال الرسائل الجديدة
+  socketService.onMessage((data) {
+    setState(() {
+      messages.add(data);
     });
-  }
+  });
+}
 
   void sendMessage() {
+    
     final text = messageCtrl.text.trim();
     if (text.isEmpty || myId == null) return;
 
@@ -90,12 +105,14 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (_, i) => chatBubble(messages[i]),
-            ),
-          ),
+       Expanded(
+  child: ListView.builder(
+    reverse: false,
+    itemCount: messages.length,
+    itemBuilder: (_, i) => chatBubble(messages[i]),
+  ),
+),
+
           inputBar(),
         ],
       ),
